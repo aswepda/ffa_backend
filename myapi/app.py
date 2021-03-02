@@ -1,11 +1,13 @@
 from flask import Flask
 from flask_restful import Resource, Api
+from flask_cors import CORS
 from resources.speech import Speech
 import os
 
 # https://flask-restful.readthedocs.io/en/latest/intermediate-usage.html#project-structure
 
 app = Flask(__name__)
+CORS(app);
 api = Api(app)
 
 class HelloWorld(Resource):
