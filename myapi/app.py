@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_restful import Resource, Api
-from resouces.speech import Speech
+from resources.speech import Speech
 
 # https://flask-restful.readthedocs.io/en/latest/intermediate-usage.html#project-structure
 
@@ -17,3 +17,4 @@ api.add_resource(Speech, '/speech')
 
 if __name__ == '__main__':
     app.run(debug=True)
+    
