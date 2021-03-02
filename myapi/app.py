@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_restful import Resource, Api
 from resources.speech import Speech
+import os
 
 # https://flask-restful.readthedocs.io/en/latest/intermediate-usage.html#project-structure
 
@@ -16,5 +17,6 @@ api.add_resource(HelloWorld, '/')
 api.add_resource(Speech, '/speech')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=True, threaded=True, port=port)
     
