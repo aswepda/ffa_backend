@@ -2,12 +2,15 @@ from flask import Flask
 from flask_restful import Resource, Api
 from flask_cors import CORS
 from resources.speech import Speech
+from resources.auth import GoogleAuth
+from resources.google import Google
 import os
 
 # https://flask-restful.readthedocs.io/en/latest/intermediate-usage.html#project-structure
 
 app = Flask(__name__)
-CORS(app);
+app.secret_key = 'pda_backend'
+CORS(app, supports_credentials=True);
 api = Api(app)
 
 class HelloWorld(Resource):
@@ -17,6 +20,8 @@ class HelloWorld(Resource):
 api.add_resource(HelloWorld, '/')
 
 api.add_resource(Speech, '/speech')
+api.add_resource(GoogleAuth, '/auth/google')
+api.add_resource(Google, '/google')
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
