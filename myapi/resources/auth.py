@@ -20,7 +20,7 @@ class GoogleAuth(Resource):
             redirect_uri='postmessage')
         flow.fetch_token(code=json['code'])
         google_credentials = flow.credentials.to_json()
-        encoded_credentials = str(base64.b64encode(google_credentials.encode('ascii')), 'ascii', 'ignore');
+        encoded_credentials = str(base64.b64encode(google_credentials.encode('ascii')), 'ascii', 'ignore')
         return {'message': 'Logged In!', 'credentials': encoded_credentials}
 
     @auth.google_auth

@@ -6,12 +6,11 @@ import json
 
 class Calendar(Resource):
     @auth.google_auth
-    def get(self):
-        
+    def get(self, time):
         credentials = g.get('googleUser')
         if credentials:
-            events = calendar.calendar_events(credentials)
+            events = calendar.calendar_events(credentials, time)
         else:
-            events = 'No Access granted' 
+            events = "No Access granted"
         
-        return {'events': events}
+        return events
