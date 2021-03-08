@@ -5,6 +5,7 @@ from resources.speech import Speech
 from resources.auth import GoogleAuth
 from resources.google import Google
 from resources.calendar import Calendar
+from resources.places import Places
 from resources.lunchbreak import Lunchbreak
 import os
 

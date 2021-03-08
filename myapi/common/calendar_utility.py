@@ -70,7 +70,7 @@ def get_lunchtime(eventslist):
 
     # Difference between the amout of events in lunchbreaktime
     # 0 Events means that lunchbreaktime can be at any time
-    if len(eventslist)=0:
+    if len(eventslist) == 0:
             data = {"message": 'Du hast heute Nachmittag frei',
             "data": info,
             "speakMessage": True}
