@@ -5,6 +5,8 @@ from resources.speech import Speech
 from resources.auth import GoogleAuth
 from resources.google import Google
 from resources.calendar import Calendar
+from resources.places import Places
+from resources.lunchbreak import Lunchbreak
 import os
 
 # https://flask-restful.readthedocs.io/en/latest/intermediate-usage.html#project-structure
@@ -24,6 +26,8 @@ api.add_resource(Speech, '/speech')
 api.add_resource(GoogleAuth, '/auth/google')
 api.add_resource(Google, '/google')
 api.add_resource(Calendar, '/calendar/<string:time>')
+api.add_resource(Places, '/places')
+api.add_resource(Lunchbreak, '/lunchbreak')
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
