@@ -13,5 +13,5 @@ def text_to_speech(text):
     # Set Service URL
     tts.set_service_url(url)
 
-    return tts.synthesize(text, accept='audio/mp3', voice='en-US_AllisonV3Voice').get_result().content
+    return tts.synthesize(text, accept='audio/mp3', voice='de-DE_BirgitV3Voice').get_result().content
         

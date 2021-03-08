@@ -1,5 +1,4 @@
-from flask_restful import Resource
-from flask_restful import request
+from flask_restful import Resource, abort, request
 
 import base64
 import common.speech_utility 
@@ -7,7 +6,10 @@ import common.speech_utility
 class Speech(Resource):
     def get(self):
         args = request.args
-        var = common.speech_utility.text_to_speech(str(args))
+        if "text" not in request.args:
+            return abort(400, message='Unauthorized!hahah')
+
+        var = common.speech_utility.text_to_speech(args['text'])
         
         return {"speech":str(base64.b64encode(var), 'ascii', 'ignore')}
         
