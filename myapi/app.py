@@ -24,6 +24,7 @@ api.add_resource(Speech, '/speech')
 api.add_resource(GoogleAuth, '/auth/google')
 api.add_resource(Google, '/google')
 api.add_resource(Calendar, '/calendar/<string:time>')
+api.add_resource(Places, '/places')
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
