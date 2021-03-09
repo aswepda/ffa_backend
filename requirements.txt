@@ -9,3 +9,6 @@ google-auth-oauthlib
 pytest
 spotipy
 googlemaps
+configparser
+requests
+sys

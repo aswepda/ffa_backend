@@ -7,6 +7,7 @@ from resources.google import Google
 from resources.calendar import Calendar
 from resources.places import Places
 from resources.lunchbreak import Lunchbreak
+from resources.weather import Weather
 import os
 
 # https://flask-restful.readthedocs.io/en/latest/intermediate-usage.html#project-structure
@@ -28,6 +29,7 @@ api.add_resource(Google, '/google')
 api.add_resource(Calendar, '/calendar/<string:time>')
 api.add_resource(Places, '/places')
 api.add_resource(Lunchbreak, '/lunchbreak')
+api.add_resource(Weather, '/weather')
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
