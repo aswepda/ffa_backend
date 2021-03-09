@@ -1,9 +1,9 @@
 from flask_restful import Resource
 from flask import g
+import common.google_places as places
 
 
 class Places(Resource):
-    def get_events(self):
-        credentials = g.get('googleUser').to_json()
-        var = common.speech_utility.google_places('-33.8670522,151.1957362')
-        return
+    def get(self):
+        var = places.google_places('48.7667,9.1833')
+        return var
