@@ -11,4 +11,3 @@ spotipy
 googlemaps
 configparser
 requests
-sys
