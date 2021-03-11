@@ -23,7 +23,7 @@ def google_places(location):
         my_place_id = place['place_id']
 
         # define the fields we want sent back to us
-        my_fields = ['name', 'formatted_phone_number', 'type', 'rating']
+        my_fields = ['name', 'formatted_phone_number', 'type', 'rating', 'price_level', 'photo', 'geometry', 'formatted_address', ]
 
         # make a request for the details
         place_details = gmaps.place(place_id = my_place_id, fields = my_fields)
