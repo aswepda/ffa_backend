@@ -6,8 +6,9 @@ import common.speech_utility
 class Speech(Resource):
     def get(self):
         args = request.args
+        
         if "text" not in request.args:
-            return abort(400, message='Unauthorized!hahah')
+            return abort(400, message='Wrong query param')
 
         var = common.speech_utility.text_to_speech(args['text'])
         
