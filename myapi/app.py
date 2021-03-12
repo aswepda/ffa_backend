@@ -35,6 +35,5 @@ api.add_resource(Weather, '/weather')
 api.add_resource(SpotiTest, '/spotitest')
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    app.run(debug=True, threaded=True, port=port, host='0.0.0.0')
-    
+    port = int(os.environ.get("PORT", 5000)) # pragma: no cover
+    app.run(debug=True, threaded=True, port=port, host='0.0.0.0') # pragma: no cover
