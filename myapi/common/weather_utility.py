@@ -2,6 +2,7 @@ import configparser
 import requests
 import sys
 
+# https://openweathermap.org/current
 # Current weather
 def get_current_weather_by_city(location):
     API_KEY = 'bdde23a2384b8b49a5c47d36cbab8780'
@@ -16,7 +17,8 @@ def get_current_weather_by_coordinates(latitude, longitude):
     r = requests.get(url)
     return r.json()
 
-# Minutely forecast for 1 hour
+# https://openweathermap.org/api/one-call-api
+# Minutely forecast for 1 hour 
 def get_minutely_weather_forecast_next_hour_by_coordinates(latitude, longitude):
     API_KEY = 'bdde23a2384b8b49a5c47d36cbab8780'
     url = "https://api.openweathermap.org/data/2.5/onecall?lat={}&lon={}&exclude={}&appid={}".format(latitude, longitude, "alerts,current,hourly,daily", API_KEY)
