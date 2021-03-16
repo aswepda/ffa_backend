@@ -4,5 +4,5 @@ import common.weather_utility
 
 class Weather(Resource):
     def get(self):
-        var = common.weather_utility.get_daily_weather_forecast_next_7days_by_coordinates('48.7667','9.1833')
+        var = common.weather_utility.get_current_weather_by_city('Stuttgart')
         return var

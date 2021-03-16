@@ -1,7 +1,6 @@
 from myapi import app
 import pytest, json
 from urllib.parse import urlencode
-import mock
 
 @pytest.fixture
 def client():
