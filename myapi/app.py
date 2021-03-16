@@ -8,10 +8,11 @@ from resources.calendar import Calendar
 from resources.places import Places
 from resources.lunchbreak import Lunchbreak
 from resources.weather import Weather
-from resources.spotitest import SpotiTest
+from common.spotify_utility import Spotify
 import os
 
 # https://flask-restful.readthedocs.io/en/latest/intermediate-usage.html#project-structure
+# python myapi\app.py
 
 app = Flask(__name__)
 app.secret_key = 'pda_backend'
@@ -32,7 +33,7 @@ api.add_resource(Calendar, '/calendar/<string:time>')
 api.add_resource(Places, '/places')
 api.add_resource(Lunchbreak, '/lunchbreak')
 api.add_resource(Weather, '/weather')
-api.add_resource(SpotiTest, '/spotitest')
+api.add_resource(Spotify, '/spotify/<string:function>')
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000)) # pragma: no cover
