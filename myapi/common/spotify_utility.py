@@ -1,40 +1,6 @@
 import spotipy
-from spotipy.oauth2 import SpotifyOAuth
-from spotipy.oauth2 import SpotifyClientCredentials
-import common.spotify_auth as auth
-from flask_restful import Resource, abort, request
-from flask import g
 from collections import Counter
 from datetime import datetime
-
-class Spotify(Resource):
-        @auth.spotify_auth
-        def get(self,function):
-                sp = g.get('spotify')
-                args = request.args
-                # TODO requests mit blank funktionieren nicht
-                if sp is None:
-                        return abort(403, message='Unauthorized!')
-                if function == 'playGenre' and args['genre']:
-                        return playGenre(sp, args['genre'])
-                if function == 'getFavoriteArtists':
-                        if args['genre']:
-                                return getFavoriteArtists(sp, args['genre'])
-                        else:
-                                # TODO das tut noch nicht
-                                return getFavoriteArtists(sp)
-                if function == 'getFavoriteGenres':
-                        return getFavoriteGenres(sp)
-                if function == 'getFavoriteTracks':
-                        return getFavoriteTracks(sp)
-                if function == 'getUserPlaylists':
-                        if args['name']:
-                                return getUserPlaylists(sp, args['name'])
-                        else:
-                                # TODO das tut noch nicht
-                                return getUserPlaylists(sp)
-                if function == 'getArtist' and args['name']:
-                        return getArtist(sp, args['name'])
 
 '''
 #get album
@@ -74,6 +40,17 @@ def getArtist(sp, name):
                         artistsUriList.append(artist['uri'])
         return artistsUriList
 
+def getPlaylists(sp, name):
+        userPlaylistsWithName = getUserPlaylists(sp, name)
+        if userPlaylistsWithName != []:
+                return userPlaylistsWithName
+        else:
+                playlistsUriList = []
+                playlists = sp.search(q='playlist:'+ name , type='playlist')
+                for playlist in playlists['playlists']['items']:
+                        playlistsUriList.append(playlist['uri'])
+                return playlistsUriList
+               
 def getUserPlaylists(sp, name=None):
         #get playlists of current user
         playlistsUriList = []
@@ -109,7 +86,7 @@ def getFavoriteArtists(sp, genre=None):
                 for i, artist in enumerate(favoriteArtists['items']):
                         if genre is None or str.lower(genre) in artist['genres']:
                                 #print(j + i, artist['name'], " (",artist['uri'], "): ", artist['genres'])
-                                favoriteArtistsUriList.append(artist['uri'])
+                                favoriteArtistsUriList.append(artist['name'])
         return favoriteArtistsUriList
 
 def getFavoriteGenres(sp):
@@ -143,15 +120,20 @@ def playGenre(sp, genre):
         '''
         desc:
          - create Playlist with only a genre given
+         - recommendation is based on 4 artists + genre or on 5 artists if genre is not available
          - see sp.recommendation_genre_seeds()['genres'] for available genres
         param:
          - genre: genre of which the recommendation is based on
         return:
          - playlist-URI
         '''
+        favoriteGenreArtists = getFavoriteArtists(sp, genre)
         if str.lower(genre) in sp.recommendation_genre_seeds()['genres']:
-                favoriteGenreArtists = getFavoriteArtists(sp, genre)
                 recommended_tracks = getRecommendations(sp, artistList=favoriteGenreArtists[:4], genreList=[genre])
-                playlist_uri = createPlaylistFromUriList(sp, recommended_tracks, "tolle " + genre + " Lieder", "automatisch erstellt von FFA am " + datetime.now().strftime("%d.%m.%Y um %H:%M"))
-                return playlist_uri
-        return "not possible for this genre"
+        elif favoriteGenreArtists != []:
+                recommended_tracks = getRecommendations(sp, artistList=favoriteGenreArtists[:5])
+        else:
+                return "not possible for this genre"
+        playlist_uri = createPlaylistFromUriList(sp, recommended_tracks, "tolle " + genre + " Lieder", "automatisch erstellt von FFA am " + datetime.now().strftime("%d.%m.%Y um %H:%M"))
+        return playlist_uri
+

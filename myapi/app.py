@@ -8,7 +8,7 @@ from resources.calendar import Calendar
 from resources.places import Places
 from resources.lunchbreak import Lunchbreak
 from resources.weather import Weather
-from common.spotify_utility import Spotify
+from resources.spotify import Spotify
 import os
 
 # https://flask-restful.readthedocs.io/en/latest/intermediate-usage.html#project-structure
@@ -24,7 +24,6 @@ class HelloWorld(Resource):
         return {'hello': 'world'}
 
 api.add_resource(HelloWorld, '/')
-
 api.add_resource(Speech, '/speech')
 api.add_resource(GoogleAuth, '/auth/google')
 api.add_resource(SpotifyAuth, '/auth/spotify')
