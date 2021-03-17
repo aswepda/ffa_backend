@@ -8,31 +8,31 @@ class Spotify(Resource):
         def get(self,function):
                 sp = g.get('spotify')
                 args = request.args
+                # calls corresponding function based on GET request 
                 if sp is None:
                         return abort(403, message='Unauthorized!')
-                if function == 'playGenre' and args['genre']:
+                elif function == 'playGenre' and args['genre']:
                         return spotify_utility.playGenre(sp, args['genre'])
-                if function == 'playYear' and args['year']:
+                elif function == 'playYear' and args['year']:
                         return spotify_utility.playMusicFromYear(sp, args['year'])
-                if function == 'getFavoriteArtists':
+                
+                elif function == 'getFavoriteArtists':
                         if "genre" in args:
                                 return spotify_utility.getFavoriteArtists(sp, args['genre'])
                         else:
                                 return spotify_utility.getFavoriteArtists(sp)
-                if function == 'getFavoriteGenres':
+                elif function == 'getFavoriteGenres':
                         return spotify_utility.getFavoriteGenres(sp)
-                if function == 'getFavoriteTracks':
+                elif function == 'getFavoriteTracks':
                         return spotify_utility.getFavoriteTracks(sp)
-                if function == 'getPlaylists' and args['name']:
+                elif function == 'getPlaylists' and args['name']:
                         return spotify_utility.getPlaylists(sp, args['name'])
-                if function == 'getUserPlaylists':
+                elif function == 'getUserPlaylists':
                         if "name" in args:
                                 return spotify_utility.getUserPlaylists(sp, args['name'])
                         else:
                                 return spotify_utility.getUserPlaylists(sp)
-                if function == 'getArtist' and args['name']:
+                elif function == 'getArtist' and args['name']:
                         return spotify_utility.getArtist(sp, args['name'])
-                if function == 'getAlbumFromArtist' and args['album'] and args['artist']:
+                elif function == 'getAlbumFromArtist' and args['album'] and args['artist']:
                         return spotify_utility.getAlbumFromArtist(sp, args['album'], args['artist'])
-                
-

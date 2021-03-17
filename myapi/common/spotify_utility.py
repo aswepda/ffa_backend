@@ -6,7 +6,7 @@ from datetime import datetime
 # {'message': 'Dies ist eine Nachricht.', 'data': {}, 'speakMessage': true}
 
 def getAlbumFromArtist(sp, albumName, artistName):
-         '''
+        '''
         desc:
          - get album based on album name and artist name
         param:
@@ -147,7 +147,6 @@ def getRecommendations(sp, artistList=None, genreList=None, trackList=None):
         return:
          - list of recommended track uris
         '''
-        #get recommendations based on track list
         recommendedTracksUriList = []
         recommendedTracks = sp.recommendations(seed_artists=artistList, seed_genres=genreList, seed_tracks=trackList, limit=50, country='from_token')
         for track in recommendedTracks['tracks']:
@@ -170,7 +169,6 @@ def createPlaylistFromUriList(sp, uri_list, playlistName, playlistDescription):
         newPlaylist = sp.user_playlist_create(userID, playlistName, public=False, collaborative=False, description=playlistDescription)
         sp.user_playlist_add_tracks(userID, newPlaylist['id'], uri_list)
         return newPlaylist['uri']
-
 
 def playGenre(sp, genre):
         '''
