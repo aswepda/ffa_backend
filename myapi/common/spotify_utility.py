@@ -30,6 +30,17 @@ for i, t in enumerate(track_results['tracks']['items']):
 # Return json:
 # {'message': 'Dies ist eine Nachricht.', 'data': {}, 'speakMessage': true}
 
+def getAlbumFromArtist(sp, albumName, artistName):
+        albumsUriList = []
+        albums = sp.search(q='album:'+ albumName + ' artist:' + artistName , type='album', market='DE')
+        print(albums)
+        #return album only if artistName matches exactly
+        
+        for album in albums['albums']['items']:
+                if str.lower(album['artists'][0]['name']) == str.lower(artistName):
+                        albumsUriList.append(album['uri'])
+        return albumsUriList
+
 def getArtist(sp, name):
         #search artist
         artistsUriList = []

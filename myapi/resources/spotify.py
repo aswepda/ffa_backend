@@ -30,4 +30,7 @@ class Spotify(Resource):
                                 return spotify_utility.getUserPlaylists(sp)
                 if function == 'getArtist' and args['name']:
                         return spotify_utility.getArtist(sp, args['name'])
+                if function == 'getAlbumFromArtist' and args['album'] and args['artist']:
+                        return spotify_utility.getAlbumFromArtist(sp, args['album'], args['artist'])
+                
 
