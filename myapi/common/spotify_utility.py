@@ -2,33 +2,11 @@ import spotipy
 from collections import Counter
 from datetime import datetime
 
-'''
-#get album
-album_result = sp.album('spotify:album:7cX5qEjIAFq8iL5JW2jedw')
-print(album_result)
 
-#recently played
-recently_played = sp.current_user_recently_played()
-recently_played_uri_list = []
-#print result
-for idx, track in enumerate(recently_played['items']['track]):
-        print(idx, track['artists'][0]['name'], " – ", track['name'] , " (",track['uri'], ")")
-        recently_played_uri_list.append(track['uri'])
-
-# spotify best tracks of certain years
-artist_name = []
-track_name = []
-popularity = []
-track_id = []
-print("2012:")
-print("#######################################################")
-for j in range(0,10,50):
-track_results = sp.search(q='year:2012', type='track', limit=50,offset=j, market='from_token')
-for i, t in enumerate(track_results['tracks']['items']):
-        print(j + i + 1, t['artists'][0]['name'], " : ", t['name'], " (",t['uri'], ")")
-'''
 # Return json:
 # {'message': 'Dies ist eine Nachricht.', 'data': {}, 'speakMessage': true}
+
+
 
 def getAlbumFromArtist(sp, albumName, artistName):
         albumsUriList = []
@@ -148,3 +126,11 @@ def playGenre(sp, genre):
         playlist_uri = createPlaylistFromUriList(sp, recommended_tracks, "tolle " + genre + " Lieder", "automatisch erstellt von FFA am " + datetime.now().strftime("%d.%m.%Y um %H:%M"))
         return playlist_uri
 
+def playMusicFromYear(sp, year):
+        yearTracksUriList = []
+        track_results = sp.search(q='year:'+ year, type='track', limit=50, market='DE')
+        for i, track in enumerate(track_results['tracks']['items']):
+                #print(j + i + 1, t['artists'][0]['name'], " : ", t['name'], " (",t['uri'], ")")
+                yearTracksUriList.append(track['uri'])
+        playlist_uri = createPlaylistFromUriList(sp, yearTracksUriList, year + " Mix", "automatisch erstellt von FFA am " + datetime.now().strftime("%d.%m.%Y um %H:%M"))
+        return playlist_uri

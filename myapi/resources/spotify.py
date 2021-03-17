@@ -12,6 +12,8 @@ class Spotify(Resource):
                         return abort(403, message='Unauthorized!')
                 if function == 'playGenre' and args['genre']:
                         return spotify_utility.playGenre(sp, args['genre'])
+                if function == 'playYear' and args['year']:
+                        return spotify_utility.playMusicFromYear(sp, args['year'])
                 if function == 'getFavoriteArtists':
                         if "genre" in args:
                                 return spotify_utility.getFavoriteArtists(sp, args['genre'])
