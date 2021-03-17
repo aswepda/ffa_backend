@@ -31,7 +31,7 @@ api.add_resource(Google, '/google')
 api.add_resource(Calendar, '/calendar/<string:time>')
 api.add_resource(Places, '/places')
 api.add_resource(Lunchbreak, '/lunchbreak')
-api.add_resource(Weather, '/weather')
+api.add_resource(Weather, '/weather/<string:time>')
 api.add_resource(Spotify, '/spotify/<string:function>')
 
 if __name__ == '__main__':
