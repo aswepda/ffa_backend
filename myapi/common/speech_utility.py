@@ -7,7 +7,7 @@ def text_to_speech(text):
     #apikey = 'g72_X_bSr5ksN4E2InJaiRyqBqd_smmmekD59y8iS_0q'
     url = 'https://api.eu-de.text-to-speech.watson.cloud.ibm.com/instances/063159ce-b301-432b-9913-593087aecf25'
     apikey = 'GJyCioYwg1JzFe6hfzWl5lAa4bGJS3mDXDF3OfNQM4cS'
-    
+
     # Setup Service
     authenticator = IAMAuthenticator(apikey)
     # New TTS Service
