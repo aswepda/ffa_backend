@@ -11,3 +11,4 @@ spotipy
 googlemaps
 configparser
 requests
+pytest-cov
