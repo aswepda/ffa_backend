@@ -5,10 +5,9 @@ import time
 
 def google_places(location, search_string):
     if not search_string:
-        print('true')
         return get_google_places_nearby(location)
     else:
-        print('flase')
+
         return get_google_places_find_place(search_string)
 
 def get_google_places_nearby(location):
