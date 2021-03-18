@@ -16,7 +16,6 @@ class Spotify(Resource):
             return spotify_utility.playGenre(sp, args['genre'])
         elif function == 'playYear' and args['year']:
             return spotify_utility.playMusicFromYear(sp, args['year'])
-
         elif function == 'getFavoriteArtists':
             if "genre" in args:
                 return spotify_utility.getFavoriteArtists(sp, args['genre'])
@@ -36,4 +35,4 @@ class Spotify(Resource):
         elif function == 'getArtist' and args['name']:
             return spotify_utility.getArtist(sp, args['name'])
         elif function == 'getAlbumFromArtist' and args['album'] and args['artist']:
-                    return spotify_utility.getAlbumFromArtist(sp, args['album'], args['artist'])
+            return spotify_utility.getAlbumFromArtist(sp, args['album'], args['artist'])

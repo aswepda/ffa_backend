@@ -12,7 +12,6 @@ from resources.spotify import Spotify
 import os
 
 # https://flask-restful.readthedocs.io/en/latest/intermediate-usage.html#project-structure
-# python myapi\app.py
 
 app = Flask(__name__)
 app.secret_key = 'pda_backend'
