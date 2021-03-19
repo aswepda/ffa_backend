@@ -2,37 +2,58 @@ from flask_restful import Resource, abort, request
 from flask import g
 import common.spotify_auth as auth
 import common.spotify_utility as spotify_utility
+from functools import wraps
 
-
-class Spotify(Resource):
+class SpotifyGenre(Resource):
     @auth.spotify_auth
-    def get(self, function):
+    def get(self, genre):
         sp = g.get('spotify')
-        args = request.args
-        # calls corresponding function based on GET request
-        if sp is None:
-            return abort(403, message='Unauthorized!')
-        elif function == 'playGenre' and args['genre']:
-            return spotify_utility.playGenre(sp, args['genre'])
-        elif function == 'playYear' and args['year']:
-            return spotify_utility.playMusicFromYear(sp, args['year'])
-        elif function == 'getFavoriteArtists':
-            if "genre" in args:
-                return spotify_utility.getFavoriteArtists(sp, args['genre'])
-            else:
-                return spotify_utility.getFavoriteArtists(sp)
-        elif function == 'getFavoriteGenres':
-            return spotify_utility.getFavoriteGenres(sp)
-        elif function == 'getFavoriteTracks':
-            return spotify_utility.getFavoriteTracks(sp)
-        elif function == 'getPlaylists' and args['name']:
-            return spotify_utility.getPlaylists(sp, args['name'])
-        elif function == 'getUserPlaylists':
-            if "name" in args:
-                return spotify_utility.getUserPlaylists(sp, args['name'])
-            else:
-                return spotify_utility.getUserPlaylists(sp)
-        elif function == 'getArtist' and args['name']:
-            return spotify_utility.getArtist(sp, args['name'])
-        elif function == 'getAlbumFromArtist' and args['album'] and args['artist']:
-            return spotify_utility.getAlbumFromArtist(sp, args['album'], args['artist'])
+        return spotify_utility.playGenre(sp, genre)
+
+class SpotifyYear(Resource):
+    @auth.spotify_auth
+    def get(self, year):
+        sp = g.get('spotify')
+        return spotify_utility.playMusicFromYear(sp, year)
+
+class SpotifyArtist(Resource):
+    @auth.spotify_auth
+    def get(self, artist):
+        sp = g.get('spotify')
+        return spotify_utility.getArtist(sp, artist)
+
+class SpotifyArtistAlbum(Resource):
+    @auth.spotify_auth
+    def get(self, artist, album):
+        sp = g.get('spotify')
+        return spotify_utility.getAlbumFromArtist(sp, album, artist)
+
+class SpotifyPlaylists(Resource):
+    @auth.spotify_auth
+    def get(self, search):
+        sp = g.get('spotify')
+        return spotify_utility.getPlaylists(sp, search)
+
+class SpotifyUserPlaylists(Resource):
+    @auth.spotify_auth
+    def get(self, search = None):
+        sp = g.get('spotify')
+        return spotify_utility.getUserPlaylists(sp, search)
+
+class SpotifyUserFavoriteTracks(Resource):
+    @auth.spotify_auth
+    def get(self):
+        sp = g.get('spotify')
+        return spotify_utility.getFavoriteTracks(sp)
+
+class SpotifyUserFavoriteGenres(Resource):
+    @auth.spotify_auth
+    def get(self):
+        sp = g.get('spotify')
+        return spotify_utility.getFavoriteGenres(sp)
+
+class SpotifyUserFavoriteArtists(Resource):
+    @auth.spotify_auth
+    def get(self):
+        sp = g.get('spotify')
+        return spotify_utility.getFavoriteArtists(sp, request.args.get('genre'))
