@@ -12,6 +12,6 @@ class Lunchbreak(Resource):
             events = calendar.calendar_events(credentials, 'lunch')
             lunchtime = calendar.get_lunchtime(events)
         else:
-            events = "No Access granted"
+            lunchtime = "No Access granted"
         
         return lunchtime
