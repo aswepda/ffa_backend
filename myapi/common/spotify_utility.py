@@ -20,7 +20,8 @@ def playGenre(sp, genre):
         - playlist name
         - playlist description
     '''
-    favoriteGenreArtists = getFavoriteArtists(sp, genre)
+    genre = genre.strip()
+    favoriteGenreArtists = getFavoriteArtists(sp, genre, True)
     if str.lower(genre) in sp.recommendation_genre_seeds()['genres']:
         recommended_tracks = getRecommendations(sp, artistList=favoriteGenreArtists[:4], genreList=[genre])
     elif favoriteGenreArtists != []:
@@ -63,7 +64,7 @@ def playMusicFromYear(sp, year):
     return data
 
 
-def getFavoriteArtists(sp, genre=None):
+def getFavoriteArtists(sp, genre=None, returnUriList=False):
     '''
     desc:
      - get favorite artists from user
@@ -80,6 +81,7 @@ def getFavoriteArtists(sp, genre=None):
             - artist follower count
     '''
     favoriteArtistsList = []
+    favoriteArtistsUriList = []
     for j in range(0, 100, 49):
         favoriteArtists = sp.current_user_top_artists(limit=49, offset=j, time_range='medium_term')
         for artist in favoriteArtists['items']:
@@ -89,6 +91,7 @@ def getFavoriteArtists(sp, genre=None):
                               "genres": artist['genres'],
                               "followers": artist['followers']['total']}
                 favoriteArtistsList.append(artistJson)
+                favoriteArtistsUriList.append(artist['uri'])
     if genre is None:
         data = {"message": 'Hier sind deine Lieblings Interpreten',
                 "data": favoriteArtistsList,
@@ -97,7 +100,10 @@ def getFavoriteArtists(sp, genre=None):
         data = {"message": 'Hier sind deine Lieblings Interpreten aus dem Genre ' + genre,
                 "data": favoriteArtistsList,
                 "speakMessage": True}
-    return data
+    if returnUriList == False:
+        return data
+    else:
+        return favoriteArtistsUriList
 
 
 def getFavoriteGenres(sp):
