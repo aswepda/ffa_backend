@@ -40,7 +40,7 @@ def calendar_events(credentials, time):
     #For the get_lunchteam we need the events 
     if time=='lunch':
         #return needed events
-        return events
+        return get_lunchtime(events)
     else:
         #generate List to store data from events in foor-Loop
         info=[]
