@@ -3,14 +3,14 @@ import googlemaps
 import pprint
 import time
 
-def google_places(location, search_string):
+def google_places(location, search_string, search_nearby_type):
     if not search_string:
-        return get_google_places_nearby(location)
+        return get_google_places_nearby(location, search_nearby_type)
     else:
 
         return get_google_places_find_place(search_string)
 
-def get_google_places_nearby(location):
+def get_google_places_nearby(location, search_nearby_type):
     # Define API Key
     API_KEY = 'AIzaSyBDF9q6ilWVfRnGcxo_18--kfGVQOEu9_o'
 
@@ -18,7 +18,7 @@ def get_google_places_nearby(location):
     gmaps = googlemaps.Client(key = API_KEY)
 
     # Define our Search
-    places_result = gmaps.places_nearby(location = location, radius = 1000, open_now = True, type = 'restaurant')
+    places_result = gmaps.places_nearby(location = location, radius = 5000, open_now = True, type = search_nearby_type)
 
     # Define List
     places_list = []
