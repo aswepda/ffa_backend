@@ -7,25 +7,24 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 import json
 
-
 def calendar_events(credentials, time):
     #Save Variables 
     cred=credentials
     time = time
-    
+    timezone = '+01:00'
     #Get todays and tomorrows day, month and year
     today=datetime.date.today()
     tomorrow=today + datetime.timedelta(days=1)
     #Check which Events are needed "today" or "tomorrow" or "lunch" and set minTime and maxTime
     if time == 'today':
-        minTime=datetime.datetime(today.year, today.month, today.day, 0, 0, 1).isoformat() + 'Z'
-        maxTime=datetime.datetime(today.year, today.month, today.day, 23, 59, 59).isoformat() + 'Z'
+        minTime=datetime.datetime(today.year, today.month, today.day, 0, 0, 1).isoformat() + timezone
+        maxTime=datetime.datetime(today.year, today.month, today.day, 23, 59, 59).isoformat() + timezone
     elif time == 'tomorrow':
-        minTime=datetime.datetime(tomorrow.year, tomorrow.month, tomorrow.day, 0, 0, 1).isoformat() + 'Z'
-        maxTime=datetime.datetime(tomorrow.year, tomorrow.month, tomorrow.day, 23, 59, 59).isoformat() + 'Z'
+        minTime=datetime.datetime(tomorrow.year, tomorrow.month, tomorrow.day, 0, 0, 1).isoformat() + timezone
+        maxTime=datetime.datetime(tomorrow.year, tomorrow.month, tomorrow.day, 23, 59, 59).isoformat() + timezone
     elif time == 'lunch':
-        minTime=datetime.datetime(today.year, today.month, today.day, 11, 0, 0).isoformat() + 'Z'
-        maxTime=datetime.datetime(today.year, today.month, today.day, 15, 0, 0).isoformat() + 'Z'
+        minTime=datetime.datetime(today.year, today.month, today.day, 11, 0, 0).isoformat() + timezone
+        maxTime=datetime.datetime(today.year, today.month, today.day, 15, 0, 0).isoformat() + timezone
     else:
         return 'Not a valid Date'
 
@@ -70,8 +69,8 @@ def get_lunchtime(eventslist):
     ends=[]
     differences=[]
     today=datetime.date.today()
-    minTime=datetime.datetime(today.year, today.month, today.day, 11, 0, 0).isoformat() + 'Z'
-    maxTime=datetime.datetime(today.year, today.month, today.day, 15, 0, 0).isoformat() + 'Z'
+    minTime=datetime.datetime(today.year, today.month, today.day, 11, 0, 0).isoformat() + '+0100'
+    maxTime=datetime.datetime(today.year, today.month, today.day, 15, 0, 0).isoformat() + '+0100'
 
     # Difference between the amout of events in lunchbreaktime
     # 0 Events means that lunchbreaktime can be at any time
@@ -84,9 +83,9 @@ def get_lunchtime(eventslist):
 
             #Get Duration from 11am to start from first event
             #Then get Duration from End of the last Event to 3pm
-            difference=datetime.datetime.strptime(starts[0], "%Y-%m-%dT%H:%M:%S+01:00")-datetime.datetime.strptime(minTime, "%Y-%m-%dT%H:%M:%SZ")
+            difference = datetime.datetime.strptime(starts[0][:22] + starts[0][23:], "%Y-%m-%dT%H:%M:%S%z") - datetime.datetime.strptime(minTime, "%Y-%m-%dT%H:%M:%S%z")
             differences.append(difference.seconds/60)
-            difference=datetime.datetime.strptime(maxTime, "%Y-%m-%dT%H:%M:%SZ")-datetime.datetime.strptime(ends[-1], "%Y-%m-%dT%H:%M:%S+01:00")
+            difference = datetime.datetime.strptime(maxTime, "%Y-%m-%dT%H:%M:%S%z") - datetime.datetime.strptime(ends[-1][:22] + ends[-1][23:], "%Y-%m-%dT%H:%M:%S%z")
             differences.append(difference.seconds/60)
 
             #Delete fist start and last end, because they were already used above
@@ -98,7 +97,7 @@ def get_lunchtime(eventslist):
             #Get the difference between the start and end times of the not used Events
             #The first Item in starts is the starttime of the 2nd Event and the last Item in ends is the enddtime of the secondlast Event
             for starttime in newStarts:
-                difference=datetime.datetime.strptime(starttime, "%Y-%m-%dT%H:%M:%S+01:00")-datetime.datetime.strptime(newEnds[counter], "%Y-%m-%dT%H:%M:%S+01:00")
+                difference=datetime.datetime.strptime(starttime[:22] + starttime[23:], "%Y-%m-%dT%H:%M:%S%z")-datetime.datetime.strptime(newEnds[counter][:22] + newEnds[counter][23:], "%Y-%m-%dT%H:%M:%S%z")
                 differences.append(difference.seconds/60)
                 counter=counter+1
 
