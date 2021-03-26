@@ -1,0 +1,14 @@
+# pip install -r requirements.txt
+flask
+flask_restful
+flask_cors
+ibm_watson
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
+pytest
+spotipy
+googlemaps
+configparser
+requests
+pytest-cov
