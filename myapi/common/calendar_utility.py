@@ -47,7 +47,7 @@ def calendar_events(credentials, time):
         #for-Loop to store eventdata in python-Dict
         for event in events:
            start = event['start'].get('dateTime', event['start'].get('date'))
-           title = event['summary'] or 'Kein Titel'
+           title = event.get('summary') or 'Kein Titel'
            link = event['htmlLink']
            end = event['end'].get('dateTime', event['end'].get('date'))
            informations = {"start": start,
