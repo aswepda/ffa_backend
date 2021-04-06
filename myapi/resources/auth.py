@@ -37,7 +37,7 @@ class GoogleAuth(Resource):
 class SpotifyAuth(Resource):
     def post(self):
         json = request.get_json()
-        authObject = SpotifyOAuth(client_id='d5550bed36f64690a6d2ae32d26023bd', client_secret='7bb9fade755943888c8e27522498b2ed', redirect_uri='https://aswepda.surge.sh/#/', open_browser=False, cache_handler=CacheVoid())
+        authObject = SpotifyOAuth(client_id='d5550bed36f64690a6d2ae32d26023bd', client_secret='7bb9fade755943888c8e27522498b2ed', redirect_uri='http://localhost:8080/#/', open_browser=False, cache_handler=CacheVoid())
         accessDict = authObject.get_access_token(code=json['code'])
         return {'message': 'Logged In!', 'credentials': accessDict['refresh_token']}
 
