@@ -11,6 +11,6 @@ def get_direction(origin, mode, destination):
     # Request directions via public transit
     directions_result = gmaps.directions(origin=start, destination=end, mode=way, departure_time=now)
     data = {"message": 'Dauer',
-        "data": directions_result[0]['legs'][0]['duration']['text'],
+        "data": directions_result[0]['legs'][0]['duration'],
         "speakMessage": True}
     return data
