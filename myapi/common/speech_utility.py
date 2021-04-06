@@ -13,7 +13,7 @@ def text_to_speech(text):
     #apikey = 'GJyCioYwg1JzFe6hfzWl5lAa4bGJS3mDXDF3OfNQM4cS'
 
 
-    rand_num = randrange(10)
+    rand_num = randrange(4)
     if rand_num == 0:
         url = 'https://api.eu-gb.text-to-speech.watson.cloud.ibm.com/instances/8a03fc07-4263-44fc-907d-2ede1c49562b'
         apikey = 'MUdicP3c-yaJz4PY-jkTj4dRwhOUS4LCU61BcEHN-04m' 
