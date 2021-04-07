@@ -1,3 +1,5 @@
 **/*/__pycache__/
+__pycache__/
 myapi/app.py
 .vscode/settings.json
+.coverage
