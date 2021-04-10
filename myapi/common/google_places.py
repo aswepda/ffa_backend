@@ -23,7 +23,7 @@ def get_google_places_nearby(location, search_nearby_type):
         my_place_id = place['place_id']
 
         # define the fields we want sent back to us
-        my_fields = ['name', 'formatted_phone_number', 'type', 'rating', 'price_level', 'geometry', 'formatted_address', 'user_ratings_total']
+        my_fields = ['name', 'formatted_phone_number', 'type', 'rating', 'price_level', 'geometry', 'formatted_address', 'user_ratings_total', 'url']
 
         # make a request for the details
         place_details = gmaps.place(place_id = my_place_id, fields = my_fields)
@@ -53,7 +53,7 @@ def get_google_places_find_place(location, search_string):
         my_place_id = place['place_id']
 
         # define the fields we want sent back to us
-        my_fields = ['name', 'formatted_phone_number', 'type', 'rating', 'price_level', 'geometry', 'formatted_address', 'user_ratings_total']
+        my_fields = ['name', 'formatted_phone_number', 'type', 'rating', 'price_level', 'geometry', 'formatted_address', 'user_ratings_total', 'url']
 
         # make a request for the details
         place_details = gmaps.place(place_id = my_place_id, fields = my_fields)
