@@ -1,6 +1,7 @@
 import configparser
 import requests
 import sys
+from flask_restful import abort
 
 # Choose fitting function according to time parameter
 def get_weather(latitude, longitude, time):
@@ -13,7 +14,7 @@ def get_weather(latitude, longitude, time):
     elif time == 'tomorrow':
         return get_daily_weather_forecast_next_7days_by_coordinates(latitude, longitude)
     else:
-        return "Not a valid time parameter (use 'now', 'later', 'today' or 'tomorrow')"
+        return abort(400, message="Not a valid time parameter (use 'now', 'later', 'today' or 'tomorrow')")
 
 # https://openweathermap.org/current
 # Current weather
