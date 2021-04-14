@@ -10,6 +10,11 @@ from resources.weather import Weather
 from resources.directions import Directions
 from resources.spotify import SpotifyGenre, SpotifyYear, SpotifyArtist, SpotifyArtistAlbum, SpotifyPlaylists, SpotifyUserPlaylists, SpotifyUserFavoriteTracks, SpotifyUserFavoriteGenres, SpotifyUserFavoriteArtists
 import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+dotenv_path = Path('../.env')
+load_dotenv(dotenv_path = dotenv_path)
 
 # https://flask-restful.readthedocs.io/en/latest/intermediate-usage.html#project-structure
 
