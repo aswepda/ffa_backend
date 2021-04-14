@@ -1,4 +1,4 @@
-from flask_restful import Resource, request
+from flask_restful import Resource, request, abort
 from flask import g
 import common.google_places as places
 
@@ -20,4 +20,4 @@ class Places(Resource):
             search_string = args['search']
             return places.get_google_places_find_place(location, search_string)
         else: 
-            return "argument missing"
+            return abort(400, message="argument missing")
