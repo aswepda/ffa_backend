@@ -12,3 +12,4 @@ googlemaps
 configparser
 requests
 pytest-cov
+python-dotenv

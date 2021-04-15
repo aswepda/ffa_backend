@@ -1,4 +1,4 @@
-from flask_restful import Resource
+from flask_restful import Resource, abort
 from flask import g
 import common.google_auth as auth
 import common.calendar_utility as calendar
@@ -11,6 +11,6 @@ class Calendar(Resource):
         if credentials:
             events = calendar.calendar_events(credentials, time)
         else:
-            events = "No Access granted"
+            return abort(403, message="No Access granted")
         
         return events

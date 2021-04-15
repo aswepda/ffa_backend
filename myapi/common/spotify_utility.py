@@ -209,7 +209,7 @@ def getUserPlaylists(sp, name=None):
      - authenticated spotify api instance
      - name of playlist (optional)
     return:
-     - JSON with:
+     - JSON sorted by track count with:
         - message to read out loud
         - list of JSON objects of public user playlists:
             - playlists URI
@@ -228,6 +228,7 @@ def getUserPlaylists(sp, name=None):
                             "owner": playlist['owner']['display_name'],
                             "track_count": playlist['tracks']['total']}
             playlistsList.append(playlistJson)
+    playlistsList = sorted(playlistsList, key=lambda k: k['track_count'], reverse=True)
     if name is None:
         data = {"message": 'Hier sind alle deine Playlists',
                 "data": playlistsList,

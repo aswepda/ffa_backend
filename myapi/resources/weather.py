@@ -1,4 +1,4 @@
-from flask_restful import Resource, request
+from flask_restful import Resource, request, abort
 from flask import g
 import common.weather_utility
 
@@ -9,6 +9,6 @@ class Weather(Resource):
             lat = args['lat']
             lon = args['lon']
         else: 
-            return "Latitude and/or longitude missing"
+            return abort(400, message="Latitude and/or longitude missing")
         var = common.weather_utility.get_weather(lat, lon, time)
         return var
