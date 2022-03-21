@@ -1,8 +1,9 @@
 import googlemaps
 from datetime import datetime
+import os
 
 def get_direction(origin, mode, destination):
-    api_key='AIzaSyBDF9q6ilWVfRnGcxo_18--kfGVQOEu9_o'
+    api_key = os.getenv("GOOGLE_API_KEY")
     way = mode
     start = origin
     end = destination

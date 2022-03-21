@@ -2,10 +2,11 @@
 import googlemaps
 import pprint
 import time
+import os
 
 def get_google_places_nearby(location, search_nearby_type):
     # Define API Key
-    API_KEY = 'AIzaSyBDF9q6ilWVfRnGcxo_18--kfGVQOEu9_o'
+    API_KEY = os.getenv("GOOGLE_API_KEY")
 
     # Define our Client
     gmaps = googlemaps.Client(key = API_KEY)
@@ -35,7 +36,7 @@ def get_google_places_nearby(location, search_nearby_type):
 
 def get_google_places_find_place(location, search_string):
     # Define API Key
-    API_KEY = 'AIzaSyBDF9q6ilWVfRnGcxo_18--kfGVQOEu9_o'
+    API_KEY = os.getenv("GOOGLE_API_KEY")
 
     # Define our Client
     gmaps = googlemaps.Client(key = API_KEY)
